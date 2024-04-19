@@ -38,8 +38,18 @@ class Model
 		for (Observer* o : allO) o->evnt(*this);
 	}
 
+	void randCoord(int& x, int& y);
+	void randCoordGrid(int& x, int& y);
+
+	void startCell();
+
 public:
 	Model(int _height = 3, int _width = 3);
+
+	void genMaze();
+	void newMaze(const int& width, const int& height) { lab = Labirinth(height * 2 + 1, width * 2 + 1); };
+	void readMaze(const string& fileName);
+	void saveMaze(const string& fileName);
 
 	void start() { evnt(); }
 

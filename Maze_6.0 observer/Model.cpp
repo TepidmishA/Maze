@@ -1,5 +1,60 @@
 #include "Model.h"
 
+void Model::randCoord(int& x, int& y)
+{
+	while (x < 1 || y < 1 || !lab.get(x, y)->canSetHero()) {
+		x = (int)(((double)rand() / RAND_MAX) * (lab.getW() - 1));
+		y = (int)(((double)rand() / RAND_MAX) * (lab.getH() - 1));
+	}
+}
+
+void Model::randCoordGrid(int& x, int& y)
+{
+	while (x % 2 != 1 || y % 2 != 1 || !lab.get(x, y)->canSetHero()) {
+		x = (int)(((double)rand() / RAND_MAX) * (lab.getW() - 1));
+		y = (int)(((double)rand() / RAND_MAX) * (lab.getH() - 1));
+	}
+}
+
+void Model::startCell()
+{
+	int x = 0, y = 0;
+	randCoord(x, y);
+
+	lab.get(x, y) = new HeroCell();
+	hero.move(x, y);
+}
+
+void Model::genMaze()
+{
+	lab.genMaze();
+	startCell();
+}
+
+void Model::readMaze(const string& fileName)
+{
+	ifstream file(fileName);
+	int height, width;
+	file >> width >> height;
+	file.ignore();
+
+	lab = Labirinth(height, width);
+	file >> lab;
+
+	startCell();
+}
+
+void Model::saveMaze(const string& fileName)
+{
+	ofstream file(fileName);
+	int playerX = hero.getX(), playerY = hero.getY();
+	*lab.get(playerX, playerY) = EmptyCell();
+
+	file << lab.getW() << ' ' << lab.getH() << endl;
+	file << lab;
+	*lab.get(playerX, playerY) = HeroCell();
+}
+
 Model::Model(int _height, int _width)
 {
 	lab = Labirinth(_height * 2 + 1, _width * 2 + 1);
