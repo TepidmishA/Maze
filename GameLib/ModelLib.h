@@ -1,10 +1,10 @@
 #pragma once
 
-#include "Labyrinth.h"
+#include "LabyrinthLib.h"
 
-#include "ExceptionCellAdd.h"
-#include "ExceptionExit.h"
-#include "ExceptionZeroHP.h"
+#include "ExceptionCellAddLib.h"
+#include "ExceptionExitLib.h"
+#include "ExceptionZeroHPLib.h"
 
 #include <iostream>
 #include <vector>
