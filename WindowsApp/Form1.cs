@@ -15,9 +15,23 @@ namespace WindowsApp
         public Form1()
         {
             InitializeComponent();
+
+            this.KeyPreview = true;
+            this.KeyDown += new KeyEventHandler(FormKeyDown);
         }
 
-        public ModelNET game;
+        private void FormKeyDown(object sender, KeyEventArgs e)
+        {
+            int keyCode = (int)e.KeyCode;
+
+            label1.Text = keyCode.ToString();
+
+            controller.step(keyCode);
+        }
+
+        private ModelNET game;
+        private Controller controller;
+
 
         class ShowStepCnt : IObserverDLL
         {
@@ -124,15 +138,16 @@ namespace WindowsApp
 
             override public void event_m(ModelNET game)
             {
-                Graphics g = panelAround.CreateGraphics();
-                game.paintAround(g);
-            }
+                //Graphics g = panelAround.CreateGraphics();
 
+                game.paintAround(panelAround);
+            }
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
             game = new ModelNET();
+            controller = new Controller(game);
 
             /*
             ShowStepCnt showStepCnt = new ShowStepCnt(10, 10, game, this);
@@ -143,6 +158,7 @@ namespace WindowsApp
             game.addObserver(showCollectedCoin);
             game.addObserver(showHP);
             */
+            game.genMaze();
 
             ShowStepCnt showStepCnt = new ShowStepCnt(game, this);
             game.addObserver(showStepCnt);
@@ -159,6 +175,7 @@ namespace WindowsApp
 
         }
 
+        
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
             ;
