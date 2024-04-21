@@ -31,7 +31,19 @@ namespace WindowsApp
 
         private ModelNET game;
         private Controller controller;
+        List<Color> colors = new List<Color>();
 
+        void CreateColorList(List<Color> colors)
+        {
+            colors.Add(Color.Black);
+            colors.Add(Color.Blue);
+            colors.Add(Color.Green);
+            colors.Add(Color.Cyan);
+            colors.Add(Color.Red);
+            colors.Add(Color.Magenta);
+            colors.Add(Color.Yellow);
+            colors.Add(Color.White);
+        }
 
         class ShowStepCnt : IObserverDLL
         {
@@ -129,7 +141,7 @@ namespace WindowsApp
             {
                 panelAround = new Panel();
                 panelAround.Location = new Point(10, 10 + 20 * game.getObsCnt());
-                panelAround.Size = new Size(100, 100);
+                panelAround.Size = new Size(70, 70);
                 panelAround.BackColor = Color.White;
                 panelAround.BorderStyle = BorderStyle.FixedSingle;
 
@@ -146,7 +158,8 @@ namespace WindowsApp
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            game = new ModelNET();
+            CreateColorList(colors);
+            game = new ModelNET(10, 10);
             controller = new Controller(game);
 
             /*

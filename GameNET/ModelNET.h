@@ -3,6 +3,8 @@
 
 #include <vcclr.h>
 #include <vector>
+#include <sstream>
+#include <map>
 
 using namespace std;
 
@@ -69,6 +71,8 @@ public:
 };
 */
 
+
+
 public ref class ModelNET
 {
 	Labirinth& lab = *(new Labirinth);
@@ -107,6 +111,10 @@ public:
 	int getStepCnt() { return stepCnt; }
 	int getObsCnt() { return obsCnt; }
 
+	//Color getColor(int consoleColor) {
+	//	return colors[consoleColor];
+	//}
+
 	void move(MoveAction action);
 
 	Labirinth& getLab() { return lab; }
@@ -118,5 +126,4 @@ public:
 	}
 
 	void paintAround(Panel^ p);
-
 };

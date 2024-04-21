@@ -84,16 +84,32 @@ void ModelNET::move(MoveAction action)
 
 void ModelNET::paintAround(Panel^ p)
 {
-	/*
+	Graphics^ g = p->CreateGraphics();
+	g->Clear(Color::White);
+
+	int cellSize = 12;
+
 	for (int y = hero.getY() - hero.getView(); y < hero.getY() + 1 + hero.getView(); y++) {
 		for (int x = hero.getX() - hero.getView(); x < hero.getX() + 1 + hero.getView(); x++) {
-			for (int k = 0; k < CELL_SIZE; k++) {
-				if ((x < 0) || (y < 0) || (x >= lab.getW()) || (y >= lab.getH())) out << " ";
-				else {
-					lab.get(x, y)->visit(out);
-				}
+			//for (int k = 0; k < CELL_SIZE; k++) {
+			int drawX = (x - (hero.getX() - hero.getView())) * cellSize;
+			int drawY = (y - (hero.getY() - hero.getView())) * cellSize;
+
+			char val = ' ';
+			Color color = Color::White;
+
+			if ((x < 0) || (y < 0) || (x >= lab.getW()) || (y >= lab.getH())) val = ' ';
+			else {
+				ostringstream ss;
+				lab.get(x, y)->visit(ss);
+				val = ss.str()[0];
+				color = Color::FromArgb(lab.get(x, y)->getColor());
+				color = Color::Black;
 			}
+			Brush^ brush = gcnew SolidBrush(color);
+
+			String^ symbolStr = Char::ToString(val);
+			g->DrawString(symbolStr, gcnew Font("Arial", cellSize), brush, drawX, drawY);
 		}
 	}
-	*/
 }
