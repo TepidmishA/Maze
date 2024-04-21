@@ -4,9 +4,17 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+
+/*
+ToDo:
+1. Fix coin check for win (ExicCell(COINS))
+2. Add color to panel
+*/
+
 
 namespace WindowsApp
 {
@@ -20,18 +28,31 @@ namespace WindowsApp
             this.KeyDown += new KeyEventHandler(FormKeyDown);
         }
 
+        private object ex;
         private void FormKeyDown(object sender, KeyEventArgs e)
         {
             int keyCode = (int)e.KeyCode;
 
             label1.Text = keyCode.ToString();
-
-            controller.step(keyCode);
+            try
+            {
+                controller.step(keyCode);
+            }
+            catch (ExceptionZeroHPNET ex) {
+                MessageBox.Show("Congratulations! You lose.", "Loser!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.Close();
+            }
+            catch (ExceptionWinNET ex) {
+                MessageBox.Show("Congratulations! You win.", "Victory!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.Close();
+            }
         }
+
 
         private ModelNET game;
         private Controller controller;
         List<Color> colors = new List<Color>();
+        
 
         void CreateColorList(List<Color> colors)
         {
@@ -62,7 +83,7 @@ namespace WindowsApp
                 lblStepCnt = new Label();
                 lblStepCnt.Text = "Count step: " + game.getStepCnt().ToString();
                 lblStepCnt.AutoSize = true;
-                lblStepCnt.Location = new Point(10, 10 + 20 * game.getObsCnt());
+                lblStepCnt.Location = new Point(10, 10 + game.getObsDeltaY());
                 lblStepCnt.Font = new Font("Arial", 12);
                 form.Controls.Add(lblStepCnt);
             }
@@ -92,7 +113,7 @@ namespace WindowsApp
                 lblCollectedCoin = new Label();
                 lblCollectedCoin.Text = "Coins collected: " + game.getCollectedCoins().ToString();
                 lblCollectedCoin.AutoSize = true;
-                lblCollectedCoin.Location = new Point(10, 10 + 20 * game.getObsCnt());
+                lblCollectedCoin.Location = new Point(10, 10 + game.getObsDeltaY());
                 lblCollectedCoin.Font = new Font("Arial", 12);
                 form.Controls.Add(lblCollectedCoin);
             }
@@ -122,7 +143,7 @@ namespace WindowsApp
                 lblHP = new Label();
                 lblHP.Text = "HP: " + game.getHp().ToString();
                 lblHP.AutoSize = true;
-                lblHP.Location = new Point(10, 10 + 20 * game.getObsCnt());
+                lblHP.Location = new Point(10, 10 + game.getObsDeltaY());
                 lblHP.Font = new Font("Arial", 12);
                 form.Controls.Add(lblHP);
             }
@@ -140,8 +161,9 @@ namespace WindowsApp
             public ShowAround(ModelNET game, Form form)
             {
                 panelAround = new Panel();
-                panelAround.Location = new Point(10, 10 + 20 * game.getObsCnt());
-                panelAround.Size = new Size(70, 70);
+                panelAround.Location = new Point(10, 10 + game.getObsDeltaY());
+                game.addObsDeltaY((game.getViewField() * 2) * 14);
+                panelAround.Size = new Size((game.getViewField() * 2 + 1) * 13, (game.getViewField() * 2 + 1) * 13);
                 panelAround.BackColor = Color.White;
                 panelAround.BorderStyle = BorderStyle.FixedSingle;
 
@@ -150,16 +172,35 @@ namespace WindowsApp
 
             override public void event_m(ModelNET game)
             {
-                //Graphics g = panelAround.CreateGraphics();
-
                 game.paintAround(panelAround);
+            }
+        }
+
+        class ShowAll : IObserverDLL
+        {
+            Panel panelAll;
+
+            public ShowAll(ModelNET game, Form form)
+            {
+                panelAll = new Panel();
+                panelAll.Location = new Point(10, 10 + game.getObsDeltaY());
+                panelAll.Size = new Size(game.getLabW() * 13, game.getLabH() * 13);
+                panelAll.BackColor = Color.White;
+                panelAll.BorderStyle = BorderStyle.FixedSingle;
+
+                form.Controls.Add(panelAll);
+            }
+
+            override public void event_m(ModelNET game)
+            {
+                game.paintAll(panelAll);
             }
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
             CreateColorList(colors);
-            game = new ModelNET(10, 10);
+            game = new ModelNET(5, 5);
             controller = new Controller(game);
 
             /*
@@ -171,6 +212,7 @@ namespace WindowsApp
             game.addObserver(showCollectedCoin);
             game.addObserver(showHP);
             */
+
             game.genMaze();
 
             ShowStepCnt showStepCnt = new ShowStepCnt(game, this);
@@ -185,7 +227,8 @@ namespace WindowsApp
             ShowAround showAround = new ShowAround(game, this);
             game.addObserver(showAround);
 
-
+            ShowAll showAll = new ShowAll(game, this);
+            game.addObserver(showAll);
         }
 
         

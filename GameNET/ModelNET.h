@@ -1,5 +1,6 @@
 #pragma once
 #include "LabyrinthLib.h"
+#include "ExceptionNET.h"
 
 #include <vcclr.h>
 #include <vector>
@@ -71,7 +72,7 @@ public:
 };
 */
 
-
+#define CELLSIZE 12
 
 public ref class ModelNET
 {
@@ -79,7 +80,7 @@ public ref class ModelNET
 	Hero& hero = *(new Hero);
 
 	List<IObserverDLL^>^ allODLL;
-	int obsCnt = 0;
+	int obsDeltaY = 0;
 	int stepCnt = 0;
 
 	void randCoord(int& x, int& y);
@@ -109,7 +110,12 @@ public:
 	int getHp() { return hero.getHP(); }
 	int getCollectedCoins() { return hero.getCoin(); }
 	int getStepCnt() { return stepCnt; }
-	int getObsCnt() { return obsCnt; }
+	int getObsDeltaY() { return obsDeltaY; }
+	void addObsDeltaY(int val) { obsDeltaY += val; }
+	int getViewField() { return hero.getView(); }
+
+	int getLabH() { return lab.getH(); }
+	int getLabW() { return lab.getW(); }
 
 	//Color getColor(int consoleColor) {
 	//	return colors[consoleColor];
@@ -122,8 +128,9 @@ public:
 
 	void addObserver(IObserverDLL^ o) {
 		allODLL->Add(o);
-		obsCnt++;
+		obsDeltaY += 20;
 	}
 
 	void paintAround(Panel^ p);
+	void paintAll(Panel^ p);
 };

@@ -134,6 +134,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="ControllerNET.h" />
+    <ClInclude Include="ExceptionNET.h" />
     <ClInclude Include="ModelNET.h" />
   </ItemGroup>
   <ItemGroup>

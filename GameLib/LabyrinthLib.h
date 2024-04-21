@@ -14,7 +14,7 @@ using namespace std;
 
 #define CELL_SIZE 2
 #define	MONSTER_COUNT 4
-#define	COIN_COUNT 5
+#define	COIN_COUNT 3
 
 enum MoveAction
 {
