@@ -18,9 +18,24 @@
     <ClInclude Include="ModelNET.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ObserverNET.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ControllerNET.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ExceptionNET.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModelNET.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ObserverNET.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ControllerNET.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

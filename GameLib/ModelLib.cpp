@@ -105,7 +105,7 @@ void Model::move(MoveAction action)
 		// cout << e.what()
 	}
 	stepCnt++;
-	evnt();
+	update();
 }
 
 

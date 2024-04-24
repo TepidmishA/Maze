@@ -133,14 +133,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="ControllerNET.h" />
+    <ClInclude Include="ExceptionNET.h" />
     <ClInclude Include="ModelNET.h" />
+    <ClInclude Include="ObserverNET.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ControllerNET.cpp" />
     <ClCompile Include="ModelNET.cpp" />
+    <ClCompile Include="ObserverNET.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GameLib\GameLib.vcxproj">

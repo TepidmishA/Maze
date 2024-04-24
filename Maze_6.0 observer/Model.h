@@ -30,7 +30,7 @@ class Model
 
 	vector<Observer*> allO;
 
-	void evnt() { // оповещение всех наблюдателей
+	void update() { // оповещение всех наблюдателей
 		for (Observer* o : allO) o->evnt(*this);
 	}
 
@@ -47,7 +47,7 @@ public:
 	void readMaze(const string& fileName);
 	void saveMaze(const string& fileName);
 
-	void start() { evnt(); }
+	void start() { update(); }
 
 	int getHp() { return hero.getHP(); }
 	int getCollectedCoins() { return hero.getCoin(); }
