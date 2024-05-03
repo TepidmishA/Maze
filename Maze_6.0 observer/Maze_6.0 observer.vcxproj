@@ -105,6 +105,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>../GameLib</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -128,39 +129,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Cell.cpp" />
-    <ClCompile Include="Coin.cpp" />
-    <ClCompile Include="Controller.cpp" />
-    <ClCompile Include="EmptyCell.cpp" />
-    <ClCompile Include="ExitCell.cpp" />
-    <ClCompile Include="func.cpp" />
     <ClCompile Include="Game.cpp" />
-    <ClCompile Include="Hero.cpp" />
-    <ClCompile Include="HeroCell.cpp" />
-    <ClCompile Include="Labyrinth.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Model.cpp" />
-    <ClCompile Include="Monster.cpp" />
-    <ClCompile Include="Wall.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Cell.h" />
-    <ClInclude Include="Coin.h" />
-    <ClInclude Include="Controller.h" />
-    <ClInclude Include="EmptyCell.h" />
-    <ClInclude Include="ExceptionCellAdd.h" />
-    <ClInclude Include="ExceptionExit.h" />
-    <ClInclude Include="ExceptionWin.h" />
-    <ClInclude Include="ExceptionZeroHP.h" />
-    <ClInclude Include="ExitCell.h" />
-    <ClInclude Include="func.h" />
     <ClInclude Include="Game.h" />
-    <ClInclude Include="Hero.h" />
-    <ClInclude Include="HeroCell.h" />
-    <ClInclude Include="Labyrinth.h" />
-    <ClInclude Include="Model.h" />
-    <ClInclude Include="Monster.h" />
-    <ClInclude Include="Wall.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GameLib\GameLib.vcxproj">
+      <Project>{a908629f-c8c4-47e5-87c6-b0cdb23b6c8c}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

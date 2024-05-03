@@ -1,7 +1,5 @@
-#include "func.h"
-//#include "Game.h"
-#include "Model.h"
-#include "Controller.h"
+#include "ModelLib.h"
+#include "ControllerLib.h"
 
 int main() {
 	srand(time(NULL));

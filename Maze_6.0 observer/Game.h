@@ -1,14 +1,14 @@
 #pragma once
 
-#include "Cell.h"
-#include "Hero.h"
+#include "CellLib.h"
+#include "HeroLib.h"
 
-#include "func.h"
-#include "Labyrinth.h"
+#include "funcLib.h"
+#include "LabyrinthLib.h"
 
-#include "ExceptionCellAdd.h"
-#include "ExceptionExit.h"
-#include "ExceptionZeroHP.h"
+#include "ExceptionCellAddLib.h"
+#include "ExceptionExitLib.h"
+#include "ExceptionZeroHPLib.h"
 
 class Game
 {
