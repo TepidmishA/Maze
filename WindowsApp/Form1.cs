@@ -12,6 +12,8 @@ namespace WindowsApp
 {
     public partial class Form1 : Form
     {
+        Pen p = new Pen(Color.Black, 3);
+
         public Form1()
         {
             InitializeComponent();

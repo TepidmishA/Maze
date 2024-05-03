@@ -2,13 +2,7 @@
 
 void ModelNET::addObsC()
 {
-	// Obtain a native pointer to the managed ModelNET object
-	GCHandle handle = GCHandle::Alloc(this);
-	IntPtr ptr = GCHandle::ToIntPtr(handle);
-	ModelNET^* nativePtr = static_cast<ModelNET^*>(ptr.ToPointer());
-
-	// Create an instance of Omodel using the native pointer
-	Omodel* tmp = new Omodel(nativePtr);
+	Omodel* tmp = new Omodel(this);
 	modelC->addObserver(tmp);
 }
 

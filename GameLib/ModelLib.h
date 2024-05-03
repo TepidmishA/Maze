@@ -14,6 +14,7 @@
 using namespace std;
 
 class Model;
+class painter;
 
 class Observer
 {
@@ -26,6 +27,8 @@ class Model
 {
 	Labirinth lab;
 	Hero hero;
+	painter* p;
+
 	int stepCnt = 0;
 
 	vector<Observer*> allO;
@@ -42,12 +45,19 @@ class Model
 public:
 	Model(int _height = 3, int _width = 3);
 
+	painter& getPainter() { return *p; }
+	void initPainter(painter* _p) {
+		if (p != nullptr) delete p;
+		p = _p;
+	}
+
 	void genMaze();
 	void newMaze(const int& width, const int& height) { lab = Labirinth(height * 2 + 1, width * 2 + 1); };
 	void readMaze(const string& fileName);
 	void saveMaze(const string& fileName);
 
 	void start() { update(); }
+
 
 	int getHp() { return hero.getHP(); }
 	int getCollectedCoins() { return hero.getCoin(); }
@@ -59,34 +69,31 @@ public:
 	Hero& getHero() { return hero; }
 
 	void addObserver(Observer* o) {	allO.push_back(o);	}
+	void showAround(ostream& out);
 };
 
-class ShowAround : public Observer {
+class painter {
+public:
+	virtual void showStepCnt();
+	virtual void showHP();
+	virtual void showCollectedCoin();
+	virtual void showAround(Model& model, ostream& out) {
+		model.showAround(out);
+	}
+
+	virtual void showAllMap();
+
+	virtual void paintPoint(int x, int y);
+};
+
+class ShowStepCnt : public Observer {
 	ostream& out;
 
 public:
-	ShowAround(ostream& _out) :out(_out) {}
-
-	virtual void evnt(Model& model);
-};
-
-class ShowAllMap : public Observer {
-	ostream& out;
-
-public:
-	ShowAllMap(ostream& _out) :out(_out) {}
-
-	virtual void evnt(Model& model) { out << model.getLab(); }
-};
-
-class ShowcollectedCoin : public Observer {
-	ostream& out;
-
-public:
-	ShowcollectedCoin(ostream& _out) :out(_out) {}
+	ShowStepCnt(ostream& _out) :out(_out) {}
 
 	virtual void evnt(Model& model) {
-		out << "Coins collected: " << model.getCollectedCoins() << endl;
+		model.getPainter().showStepCnt();
 	}
 };
 
@@ -101,13 +108,35 @@ public:
 	}
 };
 
-class ShowStepCnt : public Observer {
+class ShowCollectedCoin : public Observer {
 	ostream& out;
 
 public:
-	ShowStepCnt(ostream& _out) :out(_out) {}
+	ShowCollectedCoin(ostream& _out) :out(_out) {}
 
 	virtual void evnt(Model& model) {
-		out << "Count step: " << model.getStepCnt() << endl;
+		out << "Coins collected: " << model.getCollectedCoins() << endl;
+	}
+};
+
+class ShowAround : public Observer {
+	ostream& out;
+
+public:
+	ShowAround(ostream& _out) :out(_out) {}
+
+	virtual void evnt(Model& model) {
+		model.showAround(out);
+	};
+};
+
+class ShowAllMap : public Observer {
+	ostream& out;
+
+public:
+	ShowAllMap(ostream& _out) :out(_out) {}
+
+	virtual void evnt(Model& model) {
+		out << model.getLab(); 
 	}
 };

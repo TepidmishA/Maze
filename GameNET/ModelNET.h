@@ -13,6 +13,29 @@ using namespace System::Collections::Generic;
 using namespace System::Runtime::InteropServices; // for GCHandle
 using namespace System::Windows::Forms;
 
+// change
+class GrPainter : public painter {
+	gcroot < Graphics^> g;
+	gcroot < Pen^> p;
+public:
+	GrPainter(Graphics^ _g, Pen^ _p) :g(_g), p(_p) {}
+
+	void setGr(Graphics^ _g, Pen^ _p) {
+		g = _g; p = _p;
+	}
+
+	virtual void paint(std::string s)
+	{
+		//    String^ res = gcnew String(s.c_str());
+		g->DrawRectangle(p, 10, 10, 20, 20);
+	}
+
+	virtual void paintPoint(int x, int y) {
+		g->DrawRectangle(p, x - 10, y - 10, 20, 20);
+
+	}
+};
+
 ref class ModelNET;
 
 public ref class ObserverNET 
@@ -20,8 +43,6 @@ public ref class ObserverNET
 public:
 	virtual void event_m(ModelNET^ model) = 0;
 };
-
-class Omodel;
 
 public ref class ModelNET
 {
@@ -44,11 +65,14 @@ public:
 	void addObserver(ObserverNET^ o) {
 		allODLL->Add(o);
 		obsDeltaY += 20;
+		update();
 	}
 
 	void move(MoveAction action) {
 		try {
 			modelC->move(action);
+
+
 		}
 		catch (ExceptionZeroHP e) {
 			throw gcnew ExceptionZeroHPNET();
@@ -77,12 +101,12 @@ public:
 
 class Omodel : public Observer
 {
-	ModelNET^* mNET;
+	gcroot <ModelNET^> mNET;
 
 public:
-	Omodel(ModelNET^* _mNET) :mNET(_mNET) {}
+	Omodel(ModelNET^ _mNET) :mNET(_mNET) {}
 
 	void evnt(Model& model) {
-		(*mNET)->update();
+		mNET->update();
 	}
 };

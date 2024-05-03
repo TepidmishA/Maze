@@ -108,13 +108,9 @@ void Model::move(MoveAction action)
 	update();
 }
 
-
-void ShowAround::evnt(Model& model)
+void Model::showAround(ostream& out)
 {
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-
-	Labirinth& lab = model.getLab();
-	Hero& hero = model.getHero();
 
 	out << endl;
 	for (int y = hero.getY() - hero.getView(); y < hero.getY() + 1 + hero.getView(); y++) {
@@ -123,7 +119,7 @@ void ShowAround::evnt(Model& model)
 				if ((x < 0) || (y < 0) || (x >= lab.getW()) || (y >= lab.getH())) out << " ";
 				else {
 					SetConsoleTextAttribute(hConsole, lab.get(x, y)->getColor());
-					lab.get(x, y)->visit(out);
+					lab.get(x, y)->visit(out); // replace to painter method
 				}
 			}
 		}
@@ -131,4 +127,3 @@ void ShowAround::evnt(Model& model)
 	}
 	out << endl;
 }
-

@@ -8,7 +8,7 @@ int main() {
 	Controller c(&game);
 
 	ShowStepCnt viewCnt(cout);
-	ShowcollectedCoin viewCoin(cout);
+	ShowCollectedCoin viewCoin(cout);
 	ShowHP viewHP(cout);
 	ShowAround viewAround(cout);
 	ShowAllMap viewMap(cout);
