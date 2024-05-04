@@ -2,7 +2,7 @@
 
 bool Monster::canSetHero()
 {
-	return true;
+	return false;
 }
 
 Cell* Monster::copy()

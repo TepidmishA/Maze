@@ -28,6 +28,7 @@ class Labirinth
 {
 	int height;
 	int width;
+	int allCoins = 0;
 
 	Cell ***maze;
 	Hero builder;
@@ -38,6 +39,7 @@ class Labirinth
 	char genDir(int& now_x, int& now_y);
 	bool moveBuilt(MoveAction action);
 
+	void addCoinToMax() { allCoins++; }
 	void newCoin();
 	void newMonster();
 
@@ -45,6 +47,8 @@ public:
 	Labirinth(int _height = 3, int _width = 3);
 	int getH() { return height; };
 	int getW() { return width; };
+
+	
 
 	Cell*& get(int x, int y) { return maze[y][x]; };
 	void genMaze();

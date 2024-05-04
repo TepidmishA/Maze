@@ -53,19 +53,16 @@ namespace WindowsApp
             game = new ModelNET();
             controller = new Controller(game);
 
-            ShowStepCntNET showStepCnt = new ShowStepCntNET(game, this);
-            game.addObserver(showStepCnt);
-
-            ShowCollectedCoinNET showCollectedCoin = new ShowCollectedCoinNET(game, this);
-            game.addObserver(showCollectedCoin);
-
-            ShowHPNET showHP = new ShowHPNET(game, this);
-            game.addObserver(showHP);
+            game.addObserver(new ShowStepCntNET(label_step));
+            game.addObserver(new ShowCollectedCoinNET(label_coin));
+            game.addObserver(new ShowHPNET(label_hp));
+            game.addObserver(new ShowAroundNET(panel_around));
+            game.addObserver(new ShowAllNET(panel_all));
         }
 
-        private void panel1_Paint(object sender, PaintEventArgs e)
+        private void panel_around_Paint(object sender, PaintEventArgs e)
         {
-            ;
+            game.update();
         }
     }
 }

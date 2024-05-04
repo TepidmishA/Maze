@@ -2,7 +2,7 @@
 
 bool Coin::canSetHero()
 {
-	return true;
+	return false;
 }
 
 Cell* Coin::copy()

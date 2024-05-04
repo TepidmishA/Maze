@@ -19,6 +19,7 @@ int main() {
 	game.addObserver(&viewAround);
 	game.addObserver(&viewMap);
 
+	game.initPainter(new painter);
 	game.genMaze();
 	game.saveMaze("test.txt");
 	//c.readMaze("test.txt");

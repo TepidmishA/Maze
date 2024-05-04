@@ -189,26 +189,6 @@ char Labirinth::genDir(int& now_x, int& now_y)
 
 void Labirinth::genMaze()
 {
-	// pick exit cell
-	int exit_x = 0, exit_y = 0;
-	while (exit_x % 2 == exit_y % 2) {
-		exit_x = (int)(((double)rand() / RAND_MAX) * (getW() - 1));
-		exit_y = (int)(((double)rand() / RAND_MAX) * (getH() - 1));
-		int tmp = -1 + (int)(((double)rand() / RAND_MAX) * 2);
-		if ((int)(((double)rand() / RAND_MAX) * 2) == 0) {
-			tmp += getW();
-			exit_x = tmp * (tmp == (getW() - 1));
-		}
-		else {
-			tmp += getH();
-			exit_y = tmp * (tmp == (getH() - 1));
-		}
-	}
-
-	//maze[exit_y][exit_x] = new EmptyCell();
-	//maze[exit_y][exit_x]->isExit(true);
-	maze[exit_y][exit_x] = new ExitCell(COIN_COUNT);
-
 	// pick start cell
 	int player_x = 0, player_y = 0;
 	randCoordGrid(player_x, player_y);
@@ -244,7 +224,7 @@ void Labirinth::genMaze()
 				break;
 			}
 
-			//Ход строителя
+			// Builder nmove
 			Cell* tmp = maze[next_y][next_x];
 			maze[next_y][next_x] = (*maze[next_y][next_x]) + builder;
 			delete tmp;
@@ -279,6 +259,7 @@ void Labirinth::genMaze()
 			next_y = builder.getY();
 		}
 	}
+	//remove builder
 	int builder_x = builder.getX(), builder_y = builder.getY();
 	Cell* tmp = maze[builder_y][builder_x];
 	maze[builder_y][builder_x] = (*maze[builder_y][builder_x]) - builder;
@@ -286,8 +267,27 @@ void Labirinth::genMaze()
 
 	free_matrix(path, ((getH() - 1) / 2) * ((getW() - 1) / 2));
 
+	// spawn coins and mobs
+
 	for (int i = 0; i < COIN_COUNT; i++) newCoin();
 	for (int i = 0; i < MONSTER_COUNT; i++) newMonster();
+
+	// pick exit cell
+	int exit_x = 0, exit_y = 0;
+	while (exit_x % 2 == exit_y % 2) {
+		exit_x = (int)(((double)rand() / RAND_MAX) * (getW() - 1));
+		exit_y = (int)(((double)rand() / RAND_MAX) * (getH() - 1));
+		int tmp = -1 + (int)(((double)rand() / RAND_MAX) * 2);
+		if ((int)(((double)rand() / RAND_MAX) * 2) == 0) {
+			tmp += getW();
+			exit_x = tmp * (tmp == (getW() - 1));
+		}
+		else {
+			tmp += getH();
+			exit_y = tmp * (tmp == (getH() - 1));
+		}
+	}
+	maze[exit_y][exit_x] = new ExitCell(allCoins);
 }
 
 void Labirinth::randCoord(int& x, int& y)
@@ -310,8 +310,7 @@ void Labirinth::newCoin()
 {
 	int x = 0, y = 0;
 	randCoordGrid(x, y);
-
-
+	addCoinToMax();
 	maze[y][x] = new Coin();
 }
 

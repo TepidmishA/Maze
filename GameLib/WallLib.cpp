@@ -26,4 +26,5 @@ Cell* Wall::operator-(Hero& hero)
 void Wall::visit(ostream& out)
 {
 	out << "#";
+	// p->paintCell(char val);
 }

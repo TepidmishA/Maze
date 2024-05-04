@@ -46,6 +46,7 @@ public:
 	Model(int _height = 3, int _width = 3);
 
 	painter& getPainter() { return *p; }
+
 	void initPainter(painter* _p) {
 		if (p != nullptr) delete p;
 		p = _p;
@@ -58,7 +59,6 @@ public:
 
 	void start() { update(); }
 
-
 	int getHp() { return hero.getHP(); }
 	int getCollectedCoins() { return hero.getCoin(); }
 	int getStepCnt() { return stepCnt; }
@@ -69,21 +69,16 @@ public:
 	Hero& getHero() { return hero; }
 
 	void addObserver(Observer* o) {	allO.push_back(o);	}
-	void showAround(ostream& out);
+
+	void showAround(ostream& out, int cellSize = 1);
+	void showAll(ostream& out, int cellSize = 1);
 };
 
 class painter {
 public:
-	virtual void showStepCnt();
-	virtual void showHP();
-	virtual void showCollectedCoin();
-	virtual void showAround(Model& model, ostream& out) {
-		model.showAround(out);
+	virtual void paintCell(ostream& out, Cell*& cell, int x, int y) {
+		cell->visit(out);
 	}
-
-	virtual void showAllMap();
-
-	virtual void paintPoint(int x, int y);
 };
 
 class ShowStepCnt : public Observer {
@@ -93,7 +88,7 @@ public:
 	ShowStepCnt(ostream& _out) :out(_out) {}
 
 	virtual void evnt(Model& model) {
-		model.getPainter().showStepCnt();
+		out << "Step count: " << model.getStepCnt() << endl;;
 	}
 };
 
@@ -126,7 +121,7 @@ public:
 	ShowAround(ostream& _out) :out(_out) {}
 
 	virtual void evnt(Model& model) {
-		model.showAround(out);
+		model.showAround(out, 2);
 	};
 };
 
@@ -137,6 +132,6 @@ public:
 	ShowAllMap(ostream& _out) :out(_out) {}
 
 	virtual void evnt(Model& model) {
-		out << model.getLab(); 
+		out << model.getLab();
 	}
 };

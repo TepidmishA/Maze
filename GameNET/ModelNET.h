@@ -5,6 +5,8 @@
 #include <vcclr.h>
 #include <vector>
 
+#include <sstream>
+
 using namespace std;
 
 using namespace System;
@@ -16,23 +18,30 @@ using namespace System::Windows::Forms;
 // change
 class GrPainter : public painter {
 	gcroot < Graphics^> g;
-	gcroot < Pen^> p;
+	gcroot < Brush^> brush = gcnew SolidBrush(Color::Black);
+	gcroot < Panel^> panel;
+	int cellPixelSize = 14;
+
 public:
-	GrPainter(Graphics^ _g, Pen^ _p) :g(_g), p(_p) {}
+	//(Graphics^ _g, Brush^ _b) :g(_g), b(_b) {}
+	GrPainter(Graphics^ _g) :g(_g) {}
 
-	void setGr(Graphics^ _g, Pen^ _p) {
-		g = _g; p = _p;
+	void setGr(Graphics^ _g) {
+		g = _g;
+		g->Clear(Color::White);
 	}
 
-	virtual void paint(std::string s)
-	{
-		//    String^ res = gcnew String(s.c_str());
-		g->DrawRectangle(p, 10, 10, 20, 20);
-	}
+	virtual void paintCell(ostream& out, Cell*& cell, int x, int y) {
+		char val;
+		ostringstream ss;
+		cell->visit(ss);
+		val = ss.str()[0];
+		String^ symbolStr = Char::ToString(val);
 
-	virtual void paintPoint(int x, int y) {
-		g->DrawRectangle(p, x - 10, y - 10, 20, 20);
+		int drawX = x * cellPixelSize;
+		int drawY = y * cellPixelSize;
 
+		g->DrawString(symbolStr, gcnew Font("Verdana", cellPixelSize), brush, drawX, drawY);
 	}
 };
 
@@ -46,6 +55,7 @@ public:
 
 public ref class ModelNET
 {
+	GrPainter* painter;
 	Model* modelC;
 	List<ObserverNET^>^ allODLL;
 	int obsDeltaY = 0;
@@ -71,8 +81,6 @@ public:
 	void move(MoveAction action) {
 		try {
 			modelC->move(action);
-
-
 		}
 		catch (ExceptionZeroHP e) {
 			throw gcnew ExceptionZeroHPNET();
@@ -94,9 +102,25 @@ public:
 	int getStepCnt() { return modelC->getStepCnt(); }
 
 	Labirinth getLab() { return modelC->getLab(); }
-	//int getLabW() { return lab.getW(); }
 
-	// void paintAround(Graphics^ g);
+	void showAround(Panel^ panel, ostream& out) {
+		if (painter == nullptr) {
+			painter = new GrPainter(panel->CreateGraphics());
+			modelC->initPainter(painter);
+		}
+		painter->setGr(panel->CreateGraphics());
+		modelC->showAround(cout); // убрать cout
+	}
+
+	void showAll(Panel^ panel, ostream& out) {
+		if (painter == nullptr) {
+			painter = new GrPainter(panel->CreateGraphics());
+			modelC->initPainter(painter);
+		}
+		painter->setGr(panel->CreateGraphics());
+		
+		modelC->showAll(cout); // убрать cout
+	}
 };
 
 class Omodel : public Observer

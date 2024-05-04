@@ -43,6 +43,7 @@ public:
 	virtual Cell* operator+(Hero& hero) = 0;
 	virtual Cell* operator-(Hero& hero) = 0;
 
+	//virtual void visit(ostream& out) = 0;
 	virtual void visit(ostream& out) = 0;
 
 	friend istream& operator>>(istream& in, Cell*& cell);
