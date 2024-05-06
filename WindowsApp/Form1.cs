@@ -56,9 +56,20 @@ namespace WindowsApp
             game.addObserver(new ShowAroundNET(panel_around));
             game.addObserver(new ShowAllNET(panel_all));
 
-            wall thing = new wall();
+            initControls(game);
         }
 
+        private void initControls(ModelNET game)
+        {
+            wall thing = new wall();
+            thing.Location = new Point(0, 0);
+
+            game.initUserControl("wall", new wall());
+            game.initUserControl("hero", new hero());
+            game.initUserControl("coin", new coin());
+            game.initUserControl("emptyCell", new emptyCell());
+            game.initUserControl("monster", new monster());
+        }
         private void panel_around_Paint(object sender, PaintEventArgs e)
         {
             game.update();

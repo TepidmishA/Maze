@@ -6,7 +6,8 @@
 #include <vector>
 #include <sstream>
 #include <map>
-#include "control.h"
+//#include "control.h"
+#include <msclr\marshal_cppstd.h>
 
 using namespace std;
 
@@ -21,19 +22,21 @@ class GrPainter : public painter {
 	gcroot < Graphics^> g;
 	gcroot < Panel^> panel;
 	map<string, gcroot < Icon^>> icons;
+	map<string, gcroot < UserControl^>> controls;
 
 	//int cellPixelSize = 14;
 	int cellPixelSize = 20;
 	Drawing::Rectangle rect;
 
 	//gcroot < Brush^> brush = gcnew SolidBrush(Color::Black);
-	//gcroot < UserControl^> thing;
 
 public:
-	GrPainter(Graphics^ _g) :g(_g) {}
+	GrPainter() {}
+	GrPainter(Graphics^ _g, Panel^ _panel) :g(_g), panel(_panel) {}
 
-	void setGr(Graphics^ _g) {
+	void setGr(Graphics^ _g, Panel^ _panel) {
 		g = _g;
+		panel = _panel;
 		//g->Clear(Color::Black);
 	}
 	/*
@@ -64,6 +67,7 @@ public:
 	}
 	*/
 
+	
 	virtual void paintCell(ostream& out, Cell*& cell, int x, int y) {
 		string fileName = cell->getIcon() + ".ico";
 
@@ -81,6 +85,31 @@ public:
 
 		g->DrawIcon(icons[fileName], rect);
 	}
+	
+
+	/*
+	virtual void paintCell(ostream& out, Cell*& cell, int x, int y) {
+		string fileName = cell->getIcon();
+
+		auto search = controls.find(fileName);
+		if (search != controls.end()) {
+			int drawX = x * cellPixelSize;
+			int drawY = y * cellPixelSize;
+
+			UserControl^ tmp = gcnew UserControl();
+			tmp = controls[fileName];
+			tmp->Location = Drawing::Point(drawX, drawY);
+			
+			panel->Controls->Add(tmp);
+			//g->DrawIcon(icons[fileName], rect);
+		}
+	}
+	*/
+
+	void addUserControl(String^ name, UserControl^ control) {
+		string unmanaged = msclr::interop::marshal_as<std::string>(name);
+		controls[unmanaged] = control;
+	}
 };
 
 ref class ModelNET;
@@ -96,14 +125,20 @@ public ref class ModelNET
 	GrPainter* painter;
 	Model* modelC;
 	List<ObserverNET^>^ allODLL;
-	int obsDeltaY = 0;
 
 	void addObsC();
 
 public:
 	ModelNET();
-
 	ModelNET(int h, int w);
+
+	void initUserControl(String^ name, UserControl^ control) {
+		if (painter == nullptr) {
+			painter = new GrPainter();
+			modelC->initPainter(painter);
+		}
+		painter->addUserControl(name, control);
+	}
 
 	void update() {
 		for each (ObserverNET ^ observer in allODLL)
@@ -112,7 +147,6 @@ public:
 
 	void addObserver(ObserverNET^ o) {
 		allODLL->Add(o);
-		obsDeltaY += 20;
 		update();
 	}
 
@@ -131,31 +165,31 @@ public:
 
 	~ModelNET() { delete modelC; }
 
-	int getObsDeltaY() { return obsDeltaY; }
-	void addObsDeltaY(int val) { obsDeltaY += val; }
-	int getViewField() { return modelC->getHero().getView(); }
+	//int getViewField() { return modelC->getHero().getView(); }
 
 	int getHp() { return modelC->getHp(); }
 	int getCollectedCoins() { return modelC->getCollectedCoins();}
 	int getStepCnt() { return modelC->getStepCnt(); }
 
-	Labirinth getLab() { return modelC->getLab(); }
+	// Labirinth getLab() { return modelC->getLab(); }
 
 	void showAround(Panel^ panel, ostream& out) {
 		if (painter == nullptr) {
-			painter = new GrPainter(panel->CreateGraphics());
+			painter = new GrPainter(panel->CreateGraphics(), panel);
 			modelC->initPainter(painter);
+			//panel->Controls->Add();
 		}
-		painter->setGr(panel->CreateGraphics());
+		painter->setGr(panel->CreateGraphics(), panel);
 		modelC->showAround(cout); // убрать cout
 	}
 
 	void showAll(Panel^ panel, ostream& out) {
 		if (painter == nullptr) {
-			painter = new GrPainter(panel->CreateGraphics());
+			painter = new GrPainter(panel->CreateGraphics(), panel);
+			
 			modelC->initPainter(painter);
 		}
-		painter->setGr(panel->CreateGraphics());
+		painter->setGr(panel->CreateGraphics(), panel);
 		
 		modelC->showAll(cout); // убрать cout
 	}
