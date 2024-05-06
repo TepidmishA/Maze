@@ -24,9 +24,6 @@ namespace WindowsApp
 
         private void FormKeyDown(object sender, KeyEventArgs e)
         {
-            
-            label1.Text = ((int)e.KeyCode).ToString();
-
             int keyCode = (int)e.KeyCode;
             // невозможно передать KeyEventArgs в controller.step() ???
             try
@@ -50,7 +47,7 @@ namespace WindowsApp
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            game = new ModelNET();
+            game = new ModelNET(20, 20);
             controller = new Controller(game);
 
             game.addObserver(new ShowStepCntNET(label_step));
@@ -58,6 +55,8 @@ namespace WindowsApp
             game.addObserver(new ShowHPNET(label_hp));
             game.addObserver(new ShowAroundNET(panel_around));
             game.addObserver(new ShowAllNET(panel_all));
+
+            wall thing = new wall();
         }
 
         private void panel_around_Paint(object sender, PaintEventArgs e)

@@ -46,16 +46,58 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="coin.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="coin.Designer.cs">
+      <DependentUpon>coin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="emptyCell.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="emptyCell.Designer.cs">
+      <DependentUpon>emptyCell.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="hero.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="hero.Designer.cs">
+      <DependentUpon>hero.cs</DependentUpon>
+    </Compile>
+    <Compile Include="monster.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="monster.Designer.cs">
+      <DependentUpon>monster.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="wall.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="wall.Designer.cs">
+      <DependentUpon>wall.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="coin.resx">
+      <DependentUpon>coin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="emptyCell.resx">
+      <DependentUpon>emptyCell.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="hero.resx">
+      <DependentUpon>hero.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="monster.resx">
+      <DependentUpon>monster.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -65,7 +107,11 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="wall.resx">
+      <DependentUpon>wall.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -84,6 +130,21 @@
       <Project>{4f12586b-7418-465d-982e-15bb2f8a2180}</Project>
       <Name>GameNET</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\png_icons\coin_black.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\png_icons\emptyCell.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\png_icons\hero_black.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\png_icons\monster_black.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\png_icons\wall.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

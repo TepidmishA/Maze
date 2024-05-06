@@ -6,6 +6,7 @@
 #include <vector>
 #include <sstream>
 #include <map>
+#include "control.h"
 
 using namespace std;
 
@@ -18,18 +19,22 @@ using namespace System::Windows::Forms;
 // change
 class GrPainter : public painter {
 	gcroot < Graphics^> g;
-	gcroot < Brush^> brush = gcnew SolidBrush(Color::Black);
 	gcroot < Panel^> panel;
+	map<string, gcroot < Icon^>> icons;
+
 	//int cellPixelSize = 14;
 	int cellPixelSize = 20;
 	Drawing::Rectangle rect;
+
+	//gcroot < Brush^> brush = gcnew SolidBrush(Color::Black);
+	//gcroot < UserControl^> thing;
 
 public:
 	GrPainter(Graphics^ _g) :g(_g) {}
 
 	void setGr(Graphics^ _g) {
 		g = _g;
-		g->Clear(Color::White);
+		//g->Clear(Color::Black);
 	}
 	/*
 	virtual void paintCell(ostream& out, Cell*& cell, int x, int y) {
@@ -46,6 +51,7 @@ public:
 	}
 	*/
 
+	/*
 	virtual void paintCell(ostream& out, Cell*& cell, int x, int y) {
 		String^ fileName = gcnew String((cell->getIcon() + ".ico").c_str());
 		
@@ -55,6 +61,25 @@ public:
 
 		gcroot<Icon^> newIcon = gcnew Icon(fileName);
 		g->DrawIcon(newIcon, rect);
+	}
+	*/
+
+	virtual void paintCell(ostream& out, Cell*& cell, int x, int y) {
+		string fileName = cell->getIcon() + ".ico";
+
+		auto search = icons.find(fileName);
+		if (search == icons.end()){
+			String^ tmp = gcnew String((cell->getIcon() + ".ico").c_str());
+			gcroot<Icon^> newIcon = gcnew Icon(tmp);
+
+			icons[fileName] = newIcon;
+		}
+
+		int drawX = x * cellPixelSize;
+		int drawY = y * cellPixelSize;
+		rect = Drawing::Rectangle(drawX, drawY, cellPixelSize, cellPixelSize);
+
+		g->DrawIcon(icons[fileName], rect);
 	}
 };
 
