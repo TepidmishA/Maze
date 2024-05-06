@@ -25,7 +25,7 @@ class GrPainter : public painter {
 	map<string, gcroot < UserControl^>> controls;
 
 	//int cellPixelSize = 14;
-	int cellPixelSize = 20;
+	int cellPixelSize = 30;
 	Drawing::Rectangle rect;
 
 	//gcroot < Brush^> brush = gcnew SolidBrush(Color::Black);

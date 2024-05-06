@@ -74,17 +74,17 @@
             this.panel_around.Location = new System.Drawing.Point(11, 94);
             this.panel_around.Margin = new System.Windows.Forms.Padding(2);
             this.panel_around.Name = "panel_around";
-            this.panel_around.Size = new System.Drawing.Size(125, 108);
+            this.panel_around.Size = new System.Drawing.Size(238, 227);
             this.panel_around.TabIndex = 5;
             this.panel_around.Paint += new System.Windows.Forms.PaintEventHandler(this.panel_around_Paint);
             // 
             // panel_all
             // 
             this.panel_all.BackColor = System.Drawing.Color.Black;
-            this.panel_all.Location = new System.Drawing.Point(177, 9);
+            this.panel_all.Location = new System.Drawing.Point(253, 9);
             this.panel_all.Margin = new System.Windows.Forms.Padding(2);
             this.panel_all.Name = "panel_all";
-            this.panel_all.Size = new System.Drawing.Size(1127, 836);
+            this.panel_all.Size = new System.Drawing.Size(1416, 962);
             this.panel_all.TabIndex = 6;
             // 
             // Form1
@@ -92,7 +92,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(1345, 872);
+            this.ClientSize = new System.Drawing.Size(1754, 982);
             this.Controls.Add(this.panel_all);
             this.Controls.Add(this.panel_around);
             this.Controls.Add(this.label_coin);

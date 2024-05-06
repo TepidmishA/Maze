@@ -47,7 +47,7 @@ namespace WindowsApp
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            game = new ModelNET(20, 20);
+            game = new ModelNET(15, 20);
             controller = new Controller(game);
 
             game.addObserver(new ShowStepCntNET(label_step));
