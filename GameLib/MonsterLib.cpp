@@ -28,3 +28,8 @@ void Monster::visit(ostream& out)
 {
 	out << "*";
 }
+
+string Monster::getIcon()
+{
+	return "monster";
+}

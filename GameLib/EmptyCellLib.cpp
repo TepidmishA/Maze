@@ -24,3 +24,8 @@ void EmptyCell::visit(ostream& out)
 {
 	out << " ";
 }
+
+string EmptyCell::getIcon()
+{
+	return "emptyCell";
+}

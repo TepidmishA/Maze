@@ -4,15 +4,15 @@
 
 #include <vcclr.h>
 #include <vector>
-
 #include <sstream>
+#include <map>
 
 using namespace std;
 
 using namespace System;
 using namespace System::Drawing;
 using namespace System::Collections::Generic;
-using namespace System::Runtime::InteropServices; // for GCHandle
+// using namespace System::Runtime::InteropServices; // for GCHandle
 using namespace System::Windows::Forms;
 
 // change
@@ -20,17 +20,18 @@ class GrPainter : public painter {
 	gcroot < Graphics^> g;
 	gcroot < Brush^> brush = gcnew SolidBrush(Color::Black);
 	gcroot < Panel^> panel;
-	int cellPixelSize = 14;
+	//int cellPixelSize = 14;
+	int cellPixelSize = 20;
+	Drawing::Rectangle rect;
 
 public:
-	//(Graphics^ _g, Brush^ _b) :g(_g), b(_b) {}
 	GrPainter(Graphics^ _g) :g(_g) {}
 
 	void setGr(Graphics^ _g) {
 		g = _g;
 		g->Clear(Color::White);
 	}
-
+	/*
 	virtual void paintCell(ostream& out, Cell*& cell, int x, int y) {
 		char val;
 		ostringstream ss;
@@ -42,6 +43,18 @@ public:
 		int drawY = y * cellPixelSize;
 
 		g->DrawString(symbolStr, gcnew Font("Verdana", cellPixelSize), brush, drawX, drawY);
+	}
+	*/
+
+	virtual void paintCell(ostream& out, Cell*& cell, int x, int y) {
+		String^ fileName = gcnew String((cell->getIcon() + ".ico").c_str());
+		
+		int drawX = x * cellPixelSize;
+		int drawY = y * cellPixelSize;
+		rect = Drawing::Rectangle(drawX, drawY, cellPixelSize, cellPixelSize);
+
+		gcroot<Icon^> newIcon = gcnew Icon(fileName);
+		g->DrawIcon(newIcon, rect);
 	}
 };
 

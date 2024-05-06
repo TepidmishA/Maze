@@ -26,3 +26,8 @@ void Coin::visit(ostream& out)
 {
 	out << "@";
 }
+
+string Coin::getIcon()
+{
+	return "coin";
+}

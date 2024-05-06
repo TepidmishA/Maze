@@ -20,6 +20,7 @@ public:
 	virtual Cell* operator-(Hero& hero);
 
 	virtual void visit(ostream& out);
+	virtual string getIcon();
 
 	void getDamage(int val = 1) { hp -= val; }
 	bool checkHP() { return hp == 0; }

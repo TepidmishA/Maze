@@ -25,3 +25,8 @@ void HeroCell::visit(ostream& out)
 {
 	out << "^";
 }
+
+string HeroCell::getIcon()
+{
+	return "hero";
+}

@@ -18,6 +18,7 @@ public:
     virtual Cell* operator-(Hero& hero);
 
     virtual void visit(ostream& out);
+    virtual string getIcon();
 
     bool checkCoins(Hero& hero);
 };

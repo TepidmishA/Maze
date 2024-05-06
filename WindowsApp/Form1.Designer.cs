@@ -39,7 +39,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(689, 28);
+            this.label1.Location = new System.Drawing.Point(46, 231);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(35, 13);
             this.label1.TabIndex = 0;
@@ -93,14 +93,14 @@
             this.panel_all.Location = new System.Drawing.Point(177, 9);
             this.panel_all.Margin = new System.Windows.Forms.Padding(2);
             this.panel_all.Name = "panel_all";
-            this.panel_all.Size = new System.Drawing.Size(351, 310);
+            this.panel_all.Size = new System.Drawing.Size(936, 734);
             this.panel_all.TabIndex = 6;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(618, 389);
+            this.ClientSize = new System.Drawing.Size(1399, 810);
             this.Controls.Add(this.panel_all);
             this.Controls.Add(this.panel_around);
             this.Controls.Add(this.label_coin);

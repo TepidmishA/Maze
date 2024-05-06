@@ -29,6 +29,11 @@ void ExitCell::visit(ostream& out)
 	out << " ";
 }
 
+string ExitCell::getIcon()
+{
+	return "emptyCell";
+}
+
 bool ExitCell::checkCoins(Hero& hero)
 {
 	return hero.getCoin() == this->coins;
