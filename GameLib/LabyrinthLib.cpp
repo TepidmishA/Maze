@@ -17,9 +17,9 @@ Labirinth::Labirinth(int _height, int _width)
 			else maze[y][x] = new Wall();
 		}
 	}
-
 }
 
+/*
 ostream& operator<<(ostream& out, const Labirinth& lab)
 {
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -28,7 +28,7 @@ ostream& operator<<(ostream& out, const Labirinth& lab)
 		for (int x = 0; x < lab.width; x++) {
 			SetConsoleTextAttribute(hConsole, lab.maze[y][x]->getColor());
 			for (int k = 0; k < CELL_SIZE; ++k) {
-				lab.maze[y][x]->visit(out);
+				lab.maze[y][x]->visit(p, x, y);
 			}
 		}
 		out << endl;
@@ -36,7 +36,6 @@ ostream& operator<<(ostream& out, const Labirinth& lab)
 	out << endl;
 	return out;
 }
-
 
 ofstream& operator<<(ofstream& ofs, const Labirinth& lab)
 {
@@ -60,6 +59,7 @@ ifstream& operator>>(ifstream& ifs, Labirinth& lab)
 	}
 	return ifs;
 }
+*/
 
 Labirinth::~Labirinth()
 {

@@ -54,8 +54,8 @@ public:
 
 	void genMaze();
 	void newMaze(const int& width, const int& height) { lab = Labirinth(height * 2 + 1, width * 2 + 1); };
-	void readMaze(const string& fileName);
-	void saveMaze(const string& fileName);
+	//void readMaze(const string& fileName);
+	//void saveMaze(const string& fileName);
 
 	void start() { update(); }
 
@@ -74,12 +74,6 @@ public:
 	void showAll(ostream& out, int cellSize = 1);
 };
 
-class painter {
-public:
-	virtual void paintCell(ostream& out, Cell*& cell, int x, int y) {
-		cell->visit(out);
-	}
-};
 
 class ShowStepCnt : public Observer {
 	ostream& out;
@@ -132,6 +126,6 @@ public:
 	ShowAllMap(ostream& _out) :out(_out) {}
 
 	virtual void evnt(Model& model) {
-		out << model.getLab();
+		model.showAll(out);
 	}
 };

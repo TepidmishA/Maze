@@ -24,9 +24,9 @@ Cell* ExitCell::operator-(Hero& hero)
 	return this;
 }
 
-void ExitCell::visit(ostream& out)
+void ExitCell::visit(painter* p, int x, int y)
 {
-	out << " ";
+	p->emptyCell(x, y);
 }
 
 string ExitCell::getIcon()

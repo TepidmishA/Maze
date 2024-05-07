@@ -22,9 +22,9 @@ Cell* Coin::operator-(Hero& hero)
 	return this;
 }
 
-void Coin::visit(ostream& out)
+void Coin::visit(painter* p, int x, int y)
 {
-	out << "@";
+	p->coin(x, y);
 }
 
 string Coin::getIcon()

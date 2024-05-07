@@ -21,6 +21,6 @@ public:
 	virtual Cell* operator+(Hero& hero);
 	virtual Cell* operator-(Hero& hero);
 
-	virtual void visit(ostream& out);
+	virtual void visit(painter* p, int x, int y);
 	virtual string getIcon();
 };

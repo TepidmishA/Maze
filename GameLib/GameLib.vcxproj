@@ -48,6 +48,7 @@
     <ClInclude Include="LabyrinthLib.h" />
     <ClInclude Include="ModelLib.h" />
     <ClInclude Include="MonsterLib.h" />
+    <ClInclude Include="painter.h" />
     <ClInclude Include="WallLib.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

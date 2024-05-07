@@ -21,7 +21,7 @@ int main() {
 
 	game.initPainter(new painter);
 	game.genMaze();
-	game.saveMaze("test.txt");
+	//game.saveMaze("test.txt");
 	//c.readMaze("test.txt");
 
 	c.start();

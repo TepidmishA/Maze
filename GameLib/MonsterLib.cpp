@@ -24,9 +24,9 @@ Cell* Monster::operator-(Hero& hero)
 	return this;
 }
 
-void Monster::visit(ostream& out)
+void Monster::visit(painter* p, int x, int y)
 {
-	out << "*";
+	p->monster(x, y);
 }
 
 string Monster::getIcon()

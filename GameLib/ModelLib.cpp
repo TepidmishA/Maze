@@ -31,6 +31,7 @@ void Model::genMaze()
 	startCell();
 }
 
+/*
 void Model::readMaze(const string& fileName)
 {
 	ifstream file(fileName);
@@ -54,6 +55,7 @@ void Model::saveMaze(const string& fileName)
 	file << lab;
 	*lab.get(playerX, playerY) = HeroCell();
 }
+*/
 
 Model::Model(int _height, int _width)
 {
@@ -131,10 +133,19 @@ void Model::showAround(ostream& out, int cellSize)
 					}
 					*/
 
+					/*
 					if ((x < 0) || (y < 0) || (x >= lab.getW()) || (y >= lab.getH())) p->paintCell(out, emptyCell, x - startX, y - startY);
 					else {
 						SetConsoleTextAttribute(hConsole, lab.get(x, y)->getColor());
 						p->paintCell(out, lab.get(x, y), x - startX, y - startY);
+					}
+					*/
+
+					if ((x < 0) || (y < 0) || (x >= lab.getW()) || (y >= lab.getH())) emptyCell->visit(p, x - startX, y - startY);
+					else {
+						SetConsoleTextAttribute(hConsole, lab.get(x, y)->getColor());
+
+						lab.get(x, y)->visit(p, x - startX, y - startY);
 					}
 				}
 			}
@@ -154,7 +165,8 @@ void Model::showAll(ostream& out, int cellSize)
 		for (int y = 0; y < getLab().getH(); y++) {
 			for (int x = 0; x < getLab().getW(); x++) {
 				SetConsoleTextAttribute(hConsole, lab.get(x, y)->getColor());
-				p->paintCell(out, lab.get(x, y), x, y);
+				lab.get(x, y)->visit(p, x, y);
+				//p->paintCell(out, lab.get(x, y), x, y);
 			}
 			out << endl;
 		}

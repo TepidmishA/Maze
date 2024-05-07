@@ -23,10 +23,9 @@ Cell* Wall::operator-(Hero& hero)
 	return this;
 }
 
-void Wall::visit(ostream& out)
+void Wall::visit(painter* p, int x, int y)
 {
-	out << "#";
-	// p->paintCell(char val);
+	p->wall(x, y);
 }
 
 string Wall::getIcon()

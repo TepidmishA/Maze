@@ -7,7 +7,5 @@ public ref class Controller {
 public:
 	Controller(ModelNET^ _model) :model(_model) {}
 
-	//void start();
-	//void step(KeyEventArgs e);
 	void step(int val);
 };

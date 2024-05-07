@@ -101,5 +101,8 @@
     <ClInclude Include="WallLib.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="painter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

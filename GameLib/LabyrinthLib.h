@@ -48,8 +48,6 @@ public:
 	int getH() { return height; };
 	int getW() { return width; };
 
-	
-
 	Cell*& get(int x, int y) { return maze[y][x]; };
 	void genMaze();
 
@@ -57,8 +55,8 @@ public:
 	Labirinth& operator=(const Labirinth& lab);
 	~Labirinth();
 
-	friend ostream& operator<<(ostream& out, const Labirinth& lab);
-
-	friend ofstream& operator<<(ofstream& ofs, const Labirinth& lab);
-	friend ifstream& operator>>(ifstream& ifs, Labirinth& lab);
+	//friend ostream& operator<<(ostream& out, const Labirinth& lab);
+	//
+	//friend ofstream& operator<<(ofstream& ofs, const Labirinth& lab);
+	//friend ifstream& operator>>(ifstream& ifs, Labirinth& lab);
 };

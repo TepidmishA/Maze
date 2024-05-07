@@ -20,9 +20,9 @@ Cell* EmptyCell::operator-(Hero& hero)
 	return this;
 }
 
-void EmptyCell::visit(ostream& out)
+void EmptyCell::visit(painter* p, int x, int y)
 {
-	out << " ";
+	p->emptyCell(x, y);
 }
 
 string EmptyCell::getIcon()

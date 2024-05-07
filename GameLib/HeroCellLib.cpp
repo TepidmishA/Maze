@@ -21,9 +21,9 @@ Cell* HeroCell::operator-(Hero& hero)
 	return new EmptyCell(this);
 }
 
-void HeroCell::visit(ostream& out)
+void HeroCell::visit(painter* p, int x, int y)
 {
-	out << "^";
+	p->hero(x, y);
 }
 
 string HeroCell::getIcon()

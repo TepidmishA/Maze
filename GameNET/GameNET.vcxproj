@@ -135,6 +135,7 @@
   <ItemGroup>
     <ClInclude Include="ControllerNET.h" />
     <ClInclude Include="ExceptionNET.h" />
+    <ClInclude Include="GrPainter.h" />
     <ClInclude Include="ModelNET.h" />
     <ClInclude Include="ObserverNET.h" />
   </ItemGroup>

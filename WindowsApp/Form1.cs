@@ -25,7 +25,6 @@ namespace WindowsApp
         private void FormKeyDown(object sender, KeyEventArgs e)
         {
             int keyCode = (int)e.KeyCode;
-            // невозможно передать KeyEventArgs в controller.step() ???
             try
             {
                 controller.step(keyCode);
@@ -47,7 +46,7 @@ namespace WindowsApp
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            game = new ModelNET(15, 20);
+            game = new ModelNET(12, 20);
             controller = new Controller(game);
 
             game.addObserver(new ShowStepCntNET(label_step));
@@ -55,21 +54,8 @@ namespace WindowsApp
             game.addObserver(new ShowHPNET(label_hp));
             game.addObserver(new ShowAroundNET(panel_around));
             game.addObserver(new ShowAllNET(panel_all));
-
-            initControls(game);
         }
 
-        private void initControls(ModelNET game)
-        {
-            wall thing = new wall();
-            thing.Location = new Point(0, 0);
-
-            game.initUserControl("wall", new wall());
-            game.initUserControl("hero", new hero());
-            game.initUserControl("coin", new coin());
-            game.initUserControl("emptyCell", new emptyCell());
-            game.initUserControl("monster", new monster());
-        }
         private void panel_around_Paint(object sender, PaintEventArgs e)
         {
             game.update();

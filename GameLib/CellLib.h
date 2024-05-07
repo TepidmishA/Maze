@@ -8,6 +8,7 @@
 #include "ExceptionWinLib.h"
 
 #include "Windows.h"
+#include "painter.h"
 
 enum ConsoleColor {
 	BLACK,
@@ -43,7 +44,7 @@ public:
 	virtual Cell* operator+(Hero& hero) = 0;
 	virtual Cell* operator-(Hero& hero) = 0;
 
-	virtual void visit(ostream& out) = 0;
+	virtual void visit(painter* p, int x, int y) = 0;
 	virtual string getIcon() = 0;
 
 	friend istream& operator>>(istream& in, Cell*& cell);
